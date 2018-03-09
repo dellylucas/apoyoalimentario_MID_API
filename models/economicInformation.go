@@ -36,6 +36,7 @@ func GetResult(InfoEcono Economic) string {
 		strings.ToLower(InfoEcono.Estrato) + `,` +
 		strconv.Itoa(InfoEcono.Matricula) + `,` +
 		strconv.Itoa(InfoEcono.Ingresos) + `,` +
+		/* aca SMLV + `,` +*/
 		strings.ToLower(InfoEcono.SostePropia) + `,` +
 		strings.ToLower(InfoEcono.SosteHogar) + `,` +
 		strings.ToLower(InfoEcono.Nucleofam) + `,` +
