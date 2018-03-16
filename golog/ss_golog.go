@@ -11,6 +11,7 @@ func GetOneString(reglas string, regla_inyectada string, variable_a_obtener stri
 	m := NewMachine().Consult(reglas)
 	resultados := m.ProveAll(regla_inyectada)
 	var returnedString string
+	returnedString = ""
 	for _, solution := range resultados {
 		aux := fmt.Sprintf("%s", solution.ByName_(variable_a_obtener))
 		returnedString = aux

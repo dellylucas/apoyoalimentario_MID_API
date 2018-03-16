@@ -1,51 +1,45 @@
 package models
 
 import (
-	"ss_mid_api/golog"
+	"apoyoalimentario_MID_API/golog"
 	"strconv"
 	"strings"
 )
 
 type Economic struct {
-	Idc             string
-	Estrato         string
-	Ingresos        int
-	SostePropia     string
-	SosteHogar      string
-	Nucleofam       string
-	PersACargo      string
-	EmpleadArriendo string
-	ProvBogota      string
-	Ciudad          string
-	PobEspecial     string
-	Discapacidad    string
-	PatAlimenticia  string
-	SerPiloPaga     string
-	Sisben          string
-	Periodo         int
-	Semestre        int
-	Matricula       int
-	TipoSubsidio    string
-	Tipoapoyo       string
-	Estado          int
+	Id                   string
+	Estrato              string
+	Matricula            int
+	Ingresos             int
+	Sostenibilidadpropia string
+	Sostenibilidadhogar  string
+	Nucleofamiliar       string
+	Personasacargo       string
+	Empleadoroarriendo   string
+	Provienefuerabogota  string
+	Poblacionespecial    string
+	Discapacidad         string
+	Patologiaalimenticia string
+	Tiposubsidio         string
+	Estadoprograma       int
 }
 
 func GetResult(InfoEcono Economic) string {
-	reglasbase := CargarReglasBase("AdministrativaContratacion")
-	TypeApoyo := `resultado(` + strconv.Itoa(InfoEcono.Estado) + `,` +
+	reglasbase := CargarReglasBase("APOYOALIMENTARIO")
+	TypeApoyo := `resultado(` + strconv.Itoa(InfoEcono.Estadoprograma) + `,` +
 		strings.ToLower(InfoEcono.Estrato) + `,` +
 		strconv.Itoa(InfoEcono.Matricula) + `,` +
 		strconv.Itoa(InfoEcono.Ingresos) + `,` +
-		/* aca SMLV + `,` +*/
-		strings.ToLower(InfoEcono.SostePropia) + `,` +
-		strings.ToLower(InfoEcono.SosteHogar) + `,` +
-		strings.ToLower(InfoEcono.Nucleofam) + `,` +
-		strings.ToLower(InfoEcono.PersACargo) + `,` +
-		strings.ToLower(InfoEcono.EmpleadArriendo) + `,` +
-		strings.ToLower(InfoEcono.ProvBogota) + `,` +
-		strings.ToLower(InfoEcono.PobEspecial) + `,` +
+		`780000` + `,` +
+		strings.ToLower(InfoEcono.Sostenibilidadpropia) + `,` +
+		strings.ToLower(InfoEcono.Sostenibilidadhogar) + `,` +
+		strings.ToLower(InfoEcono.Nucleofamiliar) + `,` +
+		strings.ToLower(InfoEcono.Personasacargo) + `,` +
+		strings.ToLower(InfoEcono.Empleadoroarriendo) + `,` +
+		strings.ToLower(InfoEcono.Provienefuerabogota) + `,` +
+		strings.ToLower(InfoEcono.Poblacionespecial) + `,` +
 		strings.ToLower(InfoEcono.Discapacidad) + `,` +
-		strings.ToLower(InfoEcono.PatAlimenticia) + `,Y).`
+		strings.ToLower(InfoEcono.Patologiaalimenticia) + `,Y).`
 	Result := golog.GetOneString(reglasbase, TypeApoyo, "Y")
 
 	return Result
