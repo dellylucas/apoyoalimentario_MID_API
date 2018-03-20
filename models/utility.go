@@ -147,7 +147,7 @@ func CargarReglasBase(dominio string) (reglas string) {
 	*/ //carga de reglas desde el ruler
 	var reglasbase string = ``
 	var v []Predicado
-	//if err := getJson("http://10.20.0.254/ruler/v1/predicado/?query=dominio.Nombre:"+dominio+"&limit=-1", &v); err == nil {
+	//	if err := getJson("http://10.20.0.254/ruler/v1/predicado/?query=dominio.Nombre:"+dominio+"&limit=-1", &v); err == nil {
 	if err := getJson("http://localhost:5434/v1/predicado/?query=dominio.Nombre:"+dominio+"&limit=-1", &v); err == nil {
 
 		reglasbase = reglasbase + FormatoReglas(v) //funcion general para dar formato a reglas cargadas desde el ruler

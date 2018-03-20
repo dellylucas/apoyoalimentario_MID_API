@@ -22,6 +22,7 @@ type Economic struct {
 	Patologiaalimenticia string
 	Tiposubsidio         string
 	Estadoprograma       int
+	Salario              string
 }
 
 func GetResult(InfoEcono Economic) string {
@@ -30,7 +31,7 @@ func GetResult(InfoEcono Economic) string {
 		strings.ToLower(InfoEcono.Estrato) + `,` +
 		strconv.Itoa(InfoEcono.Matricula) + `,` +
 		strconv.Itoa(InfoEcono.Ingresos) + `,` +
-		`780000` + `,` +
+		InfoEcono.Salario + `,` +
 		strings.ToLower(InfoEcono.Sostenibilidadpropia) + `,` +
 		strings.ToLower(InfoEcono.Sostenibilidadhogar) + `,` +
 		strings.ToLower(InfoEcono.Nucleofamiliar) + `,` +
