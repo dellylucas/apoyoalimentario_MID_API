@@ -7,7 +7,7 @@ import (
 	"github.com/astaxie/beego"
 )
 
-// TipoApoyoController operations for result Type apoyo
+// TipoApoyoController services operations for result Type apoyo
 type TipoApoyoController struct {
 	beego.Controller
 }
@@ -18,28 +18,25 @@ func (c *TipoApoyoController) URLMapping() {
 
 }
 
-// Put ...
-// @Title Put
-// @Description Evaluate rules
-// @Param code query string true "Estudiante al cual se le aplica reglas"
+// CalculateScore - calculate score of student
+// @Title CalculateScore
+// @Description Evaluate rules for scrore of stundent
 // @Success 201 {int} models.Economic
 // @router / [put]
-func (j *TipoApoyoController) Put() {
+func (c *TipoApoyoController) CalculateScore() {
 
-	//Codigo := this.Ctx.Input.Param(":code")
+	var InfoEconomic models.Economic
 
-	var InfoEcono models.Economic
-
-	err := json.Unmarshal(j.Ctx.Input.RequestBody, &InfoEcono)
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &InfoEconomic)
 
 	if err == nil {
-		str := models.GetResult(InfoEcono)
-		j.Data["json"] = str
+		Result := models.GetResult(InfoEconomic)
+		c.Data["json"] = Result
 	} else {
 
-		j.Data["json"] = err.Error()
+		c.Data["json"] = err.Error()
 	}
 
-	j.ServeJSON()
+	c.ServeJSON()
 
 }

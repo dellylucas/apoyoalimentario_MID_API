@@ -9,7 +9,7 @@ func init() {
 
 	beego.GlobalControllerRouter["apoyoalimentario_MID_API/controllers:TipoApoyoController"] = append(beego.GlobalControllerRouter["apoyoalimentario_MID_API/controllers:TipoApoyoController"],
 		beego.ControllerComments{
-			Method: "Put",
+			Method: "CalculateScore",
 			Router: `/`,
 			AllowHTTPMethods: []string{"put"},
 			MethodParams: param.Make(),

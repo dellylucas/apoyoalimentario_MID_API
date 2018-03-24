@@ -6,8 +6,9 @@ import (
 	"strings"
 )
 
+//Economic - model of information of student
 type Economic struct {
-	Id                   string
+	ID                   string
 	Estrato              string
 	Matricula            int
 	Ingresos             int
@@ -25,22 +26,27 @@ type Economic struct {
 	Salario              string
 }
 
-func GetResult(InfoEcono Economic) string {
+//GetResult - Get Result of type apyo of student
+func GetResult(InfoEconomic Economic) string {
+
 	reglasbase := CargarReglasBase("APOYOALIMENTARIO")
-	TypeApoyo := `resultado(` + strconv.Itoa(InfoEcono.Estadoprograma) + `,` +
-		strings.ToLower(InfoEcono.Estrato) + `,` +
-		strconv.Itoa(InfoEcono.Matricula) + `,` +
-		strconv.Itoa(InfoEcono.Ingresos) + `,` +
-		InfoEcono.Salario + `,` +
-		strings.ToLower(InfoEcono.Sostenibilidadpropia) + `,` +
-		strings.ToLower(InfoEcono.Sostenibilidadhogar) + `,` +
-		strings.ToLower(InfoEcono.Nucleofamiliar) + `,` +
-		strings.ToLower(InfoEcono.Personasacargo) + `,` +
-		strings.ToLower(InfoEcono.Empleadoroarriendo) + `,` +
-		strings.ToLower(InfoEcono.Provienefuerabogota) + `,` +
-		strings.ToLower(InfoEcono.Poblacionespecial) + `,` +
-		strings.ToLower(InfoEcono.Discapacidad) + `,` +
-		strings.ToLower(InfoEcono.Patologiaalimenticia) + `,Y).`
+	TypeApoyo := `resultado(` +
+		strconv.Itoa(InfoEconomic.Estadoprograma) + `,` +
+		strings.ToLower(InfoEconomic.Estrato) + `,` +
+		strconv.Itoa(InfoEconomic.Matricula) + `,` +
+		strconv.Itoa(InfoEconomic.Ingresos) + `,` +
+		InfoEconomic.Salario + `,` +
+		strings.ToLower(InfoEconomic.Sostenibilidadpropia) + `,` +
+		strings.ToLower(InfoEconomic.Sostenibilidadhogar) + `,` +
+		strings.ToLower(InfoEconomic.Nucleofamiliar) + `,` +
+		strings.ToLower(InfoEconomic.Personasacargo) + `,` +
+		strings.ToLower(InfoEconomic.Empleadoroarriendo) + `,` +
+		strings.ToLower(InfoEconomic.Provienefuerabogota) + `,` +
+		strings.ToLower(InfoEconomic.Poblacionespecial) + `,` +
+		strings.ToLower(InfoEconomic.Discapacidad) + `,` +
+		strings.ToLower(InfoEconomic.Patologiaalimenticia) +
+		`,Y).`
+
 	Result := golog.GetOneString(reglasbase, TypeApoyo, "Y")
 
 	return Result
