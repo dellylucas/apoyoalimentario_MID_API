@@ -1,10 +1,18 @@
 package models
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
+	"strings"
+
+	"github.com/astaxie/beego"
 )
+
+//CrudPath - path de crud api
+const CrudPath = "http://localhost:8086/v1/information/"
 
 //getJSON - get Json format
 func getJSON(url string, target interface{}) error {
@@ -46,4 +54,22 @@ func FormatoReglas(v []Predicado) (reglas string) {
 		reglas = reglas + arregloReglas[i] + "\n"
 	}
 	return
+}
+
+//CallCRUDAPI - Hace un llamado al MID API con la informacion Socioeconomica y obtiene el tipo de apoyo
+func CallCRUDAPI(url string, trequest string, datajson interface{}) (string, error) {
+	b := new(bytes.Buffer)
+	if datajson != nil {
+		json.NewEncoder(b).Encode(datajson)
+	}
+	client := &http.Client{}
+	req, err := http.NewRequest(trequest, url, b)
+	r, err := client.Do(req)
+	if err != nil {
+		beego.Error("error", err)
+		return "na", err
+	}
+	defer r.Body.Close()
+	contents, err := ioutil.ReadAll(r.Body)
+	return strings.Replace(string(contents), "\"", "", -1), err
 }

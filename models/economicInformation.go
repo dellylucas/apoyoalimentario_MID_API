@@ -8,7 +8,7 @@ import (
 
 //Economic - model of information of student
 type Economic struct {
-	ID                   string
+	Codigo               string
 	Estrato              string
 	Matricula            int
 	Ingresos             int
@@ -23,11 +23,10 @@ type Economic struct {
 	Patologiaalimenticia string
 	Tiposubsidio         string
 	Estadoprograma       int
-	Salario              string
 }
 
 //GetResult - Get Result of type apyo of student
-func GetResult(InfoEconomic Economic) string {
+func GetResult(InfoEconomic *Economic, salario string) string {
 
 	reglasbase := CargarReglasBase("APOYOALIMENTARIO")
 	TypeApoyo := `resultado(` +
@@ -35,7 +34,7 @@ func GetResult(InfoEconomic Economic) string {
 		strings.ToLower(InfoEconomic.Estrato) + `,` +
 		strconv.Itoa(InfoEconomic.Matricula) + `,` +
 		strconv.Itoa(InfoEconomic.Ingresos) + `,` +
-		InfoEconomic.Salario + `,` +
+		salario + `,` +
 		strings.ToLower(InfoEconomic.Sostenibilidadpropia) + `,` +
 		strings.ToLower(InfoEconomic.Sostenibilidadhogar) + `,` +
 		strings.ToLower(InfoEconomic.Nucleofamiliar) + `,` +
@@ -48,6 +47,13 @@ func GetResult(InfoEconomic Economic) string {
 		`,Y).`
 
 	Result := golog.GetOneString(reglasbase, TypeApoyo, "Y")
-
+	if strings.Compare(Result, "") != 0 {
+		InfoEconomic.Tiposubsidio = Result
+		InfoEconomic.Estadoprograma = 2
+	} else {
+		Result = "na"
+		InfoEconomic.Estadoprograma = 0
+	}
+	CallCRUDAPI(CrudPath+InfoEconomic.Codigo, "PUT", InfoEconomic)
 	return Result
 }

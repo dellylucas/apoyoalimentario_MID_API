@@ -3,6 +3,7 @@ package controllers
 import (
 	"apoyoalimentario_MID_API/models"
 	"encoding/json"
+	"strings"
 
 	"github.com/astaxie/beego"
 )
@@ -21,22 +22,23 @@ func (c *TipoApoyoController) URLMapping() {
 // CalculateScore - calculate score of student
 // @Title CalculateScore
 // @Description Evaluate rules for scrore of stundent
-// @Success 201 {int} models.Economic
-// @router / [put]
+// @Param	smlv	path 	string	true	"salario minimo configurado por el administrador"
+// @Param	code	path 	string	true	"codigo del estudiante"
+// @Success 200 {object} models.Object
+// @Failure 403 :smlv is empty
+// @Failure 403 :code is empty
+// @router /:smlv/:code [put]
 func (c *TipoApoyoController) CalculateScore() {
-
+	salario := c.Ctx.Input.Param(":smlv")
 	var InfoEconomic models.Economic
-
-	err := json.Unmarshal(c.Ctx.Input.RequestBody, &InfoEconomic)
-
-	if err == nil {
-		Result := models.GetResult(InfoEconomic)
-		c.Data["json"] = Result
+	json.Unmarshal(c.Ctx.Input.RequestBody, &InfoEconomic)
+	InfoEconomic.Codigo = c.Ctx.Input.Param(":code")
+	Result := models.GetResult(&InfoEconomic, salario)
+	if strings.Compare(Result, "na") == 0 {
+		c.Data["json"] = 0 //error en mid api
 	} else {
-
-		c.Data["json"] = err.Error()
+		c.Data["json"] = 1 // ruler ok
 	}
 
 	c.ServeJSON()
-
 }
