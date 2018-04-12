@@ -9,6 +9,8 @@ Es necesario que se tenga el CLIENTE y CRUD_API
 
 Configuración de puerto
 Modifique la propiedad llamada httpport del archivo app.conf que está ubicado en conf/httpport
+#Reglas de Negocio
+en la carpeta DB_RULES_SCRIPT se encuentra el script para la insercion de reglas de negocio en la base de datos
 
 #Configuración de ruta del CRUD_API
 
